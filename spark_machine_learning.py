@@ -27,7 +27,7 @@ spark = SparkSession \
 # filePath = """sf-airbnb-clean-100p.parquet/"""
 
 # Path to the file
-filepath = 'sf-airbnb-clean-100p.parquet'
+filepath = 'data/sf-airbnb-clean-100p.parquet'
 
 # print(df.info())
 # print(df.head)
@@ -164,36 +164,36 @@ regressionEvaluator = RegressionEvaluator(
 rmse = regressionEvaluator.evaluate(predDF)
 print(f"RMSE for Random Forest is {rmse:.1f}")
 
-# Define DecisionTreeRegressor
-rf = RandomForestRegressor(featuresCol="features", labelCol="price")
+# # Hyperparametertuning
+# rf = RandomForestRegressor(featuresCol="features", labelCol="price")
 
-# Define ParamGrid
-paramGrid = ParamGridBuilder() \
-    .addGrid(rf.maxDepth, [5, 10, 15]) \
-    .addGrid(rf.numTrees, [10, 20, 30]) \
-    .addGrid(rf.maxBins, [20, 30, 40]) \
-    .build()
+# # Define ParamGrid
+# paramGrid = ParamGridBuilder() \
+#     .addGrid(rf.maxDepth, [5, 10, 15]) \
+#     .addGrid(rf.numTrees, [10, 20, 30]) \
+#     .addGrid(rf.maxBins, [20, 30, 40]) \
+#     .build()
 
-# Create CrossValidator
-evaluator = RegressionEvaluator(labelCol="price", predictionCol="prediction", metricName="rmse")
-crossval = CrossValidator(estimator=rf,
-                          estimatorParamMaps=paramGrid,
-                          evaluator=evaluator,
-                          numFolds=3)
-print(vecTrainDF.select("accommodates" \
-                         , "bathrooms" \
-                         , "bedrooms"  \
-                         , "beds"  \
-                         , "minimum_nights" \
-                         , "review_scores_rating" \
-                         , "features" \
-                         , "price").show(10))
-# Fit CrossValidator
+# # Create CrossValidator
+# evaluator = RegressionEvaluator(labelCol="price", predictionCol="prediction", metricName="rmse")
+# crossval = CrossValidator(estimator=rf,
+#                           estimatorParamMaps=paramGrid,
+#                           evaluator=evaluator,
+#                           numFolds=3)
+# print(vecTrainDF.select("accommodates" \
+#                          , "bathrooms" \
+#                          , "bedrooms"  \
+#                          , "beds"  \
+#                          , "minimum_nights" \
+#                          , "review_scores_rating" \
+#                          , "features" \
+#                          , "price").show(10))
+# # Fit CrossValidator
 
-cvModel = crossval.fit(vecTrainDF)
+# cvModel = crossval.fit(vecTrainDF)
 
-# # Get best model
-bestModel = cvModel.bestModel
+# # # Get best model
+# bestModel = cvModel.bestModel
 
 # # Define XGBoostRegressor with featuresCol and labelCol
 # xgb = SparkXGBRegressor(
