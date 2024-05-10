@@ -4,6 +4,7 @@ from pyspark import *
 from pyspark.sql.types import StructType, StructField, StringType, DoubleType
 import zipfile
 from pyspark.sql import SparkSession
+from pyspark.ml.feature import Imputer
 import pyspark.sql.functions as F
 from pyspark.ml import Pipeline
 from pyspark.ml import PipelineModel
@@ -21,8 +22,16 @@ os.environ["PYSPARK_DRIVER_PYTHON"] = sys.executable
 
 spark = SparkSession \
              .builder \
-             .master("local[*]") \
+             .appName("priceprediction") \
              .getOrCreate()
+
+#Uncomment to run locally
+# spark = SparkSession \
+#              .builder \
+#              .appName("MyApp") \
+#              .master("local[*]") \
+#              .config("spark.driver.memory", "4g") \
+#              .getOrCreate()
 
 # filePath = """sf-airbnb-clean-100p.parquet/"""
 
@@ -49,8 +58,28 @@ airbnbDF \
 #Repartition to improve availability 
 airbnbDF = airbnbDF.repartition(200)
 
-trainDF, testDF = airbnbDF.randomSplit([.8, .2], seed=42)
+
+#Check for null values
+# Null value check
+null_dict = dict()
+
+for col in airbnbDF .columns:
+    null_dict[col] = airbnbDF.select(col).where(F.col(col).isNull()).count()
+    
+print("missing values")
+print(null_dict)
+
+cat_cols = [field for (field, dataType) in airbnbDF.dtypes if dataType == 'string']
+num_cols = [field for (field, dataType) in airbnbDF.dtypes if ((dataType=='double') & (field !='price'))]
+
+#Use imputer to input missing values based on means
+imputer = Imputer(inputCols=num_cols, outputCols=num_cols)
+
+transformed_df = imputer.fit(airbnbDF).transform(airbnbDF)
+
+trainDF, testDF = transformed_df.randomSplit([.8, .2], seed=42)
 print(f"""There are {trainDF.count()} rows in the training set, and {testDF.count()} in the test set""")
+
 #Vectorizer
 vecAssembler = VectorAssembler(inputCols=["bedrooms"], outputCol="features")
 vecTrainDF = vecAssembler.transform(trainDF)

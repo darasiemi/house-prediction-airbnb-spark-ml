@@ -1,7 +1,7 @@
 FROM python:3.9.1
 
 # Set the working directory in the container
-WORKDIR /app
+WORKDIR /usr/src/app
 
 # Install Java (required for Spark)
 RUN apt-get update && \
@@ -29,10 +29,10 @@ RUN apt-get update && \
 ENV PATH $PATH:$SPARK_HOME/bin
 
 # Install Python libraries
-RUN pip install pyspark xgboost pandas
+RUN pip install pyspark xgboost pandas sklearn
 
 # Copy the current directory contents into the container at /app
-COPY . /app
+COPY . /usr/src/
 
 RUN mkdir -p /app/data 
 
