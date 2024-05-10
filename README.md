@@ -13,7 +13,7 @@ This project implements a house price prediction model for Airbnb listings, util
    - Integrated Docker to containerize the application, ensuring consistency across different computing environments and simplifying the deployment process. Docker encapsulates the application along with its dependencies, making it easy to deploy across different systems without compatibility issues.
 
 3. **Incorporation of the Random Forest Model:**
-   - Introduced the Random Forest algorithm, leveraging its robustness and accuracy for regression tasks. This model is known for handling overfitting better than many other models and provides important insights into feature importance.
+   - Implemented the Random Forest algorithm, leveraging its robustness and accuracy for regression tasks. This model is known for handling overfitting better than many other models and provides important insights into feature importance.
 
 4. **Hyperparameter Tuning:**
    - Initiated the process of hyperparameter tuning to optimize model performance. This step is crucial for enhancing the predictive accuracy by fine-tuning the model parameters. The process is currently in progress, with the aim to systematically explore a range of parameter values.
@@ -35,16 +35,3 @@ To deploy and run this Spark machine learning application using Docker, follow t
      docker run -it test:sparkml
      ```
    - This command starts a container where the Spark application can execute. The `-it` flag allocates a pseudo-TTY connected to the container’s stdin; creating an interactive bash shell in the container.
-
-**Additional Configuration and Details:**
-
-- **Environment Variables:**
-  - If there are environment variables that need to be set for Spark or the application itself (such as database credentials or API keys), they can be specified using the `-e` option with the `docker run` command.
-
-- **Data Volumes:**
-  - For data persistence or to access datasets from the host machine, you can use Docker volumes to mount data directories from the host into the container. Add `-v /path/on/host:/path/in/container` to the `docker run` command.
-
-- **Logging and Output:**
-  - Ensure that logs and outputs are directed to stdout or are being properly collected and monitored if necessary for debugging and performance tuning.
-
-This approach not only simplifies deployment but also aligns with best practices for developing and deploying big data applications in scalable and reproducible environments.
