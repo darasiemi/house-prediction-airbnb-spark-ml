@@ -23,7 +23,10 @@ os.environ["PYSPARK_DRIVER_PYTHON"] = sys.executable
 spark = SparkSession \
              .builder \
              .appName("priceprediction") \
+             .config("spark.driver.memory", "4g") \
+             .config("spark.executor.memory", "4g") \
              .getOrCreate()
+           
 
 #Uncomment to run locally
 # spark = SparkSession \

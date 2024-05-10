@@ -32,11 +32,10 @@ ENV PATH $PATH:$SPARK_HOME/bin
 RUN pip install pyspark xgboost pandas sklearn
 
 # Copy the current directory contents into the container at /app
-COPY . /usr/src/
+COPY . /usr/src/app
 
-RUN mkdir -p /app/data 
-
-RUN unzip data/sf-airbnb-clean-100p.parquet.zip -d data/sf-airbnb-clean-100p.parquet
+RUN mkdir -p /usr/src/app/data && \
+    unzip -o /usr/src/app/data/sf-airbnb-clean-100p.parquet.zip -d /usr/src/app/data/
 
 # Run Python script on container startup
 ENTRYPOINT ["python", "spark_machine_learning.py"]
