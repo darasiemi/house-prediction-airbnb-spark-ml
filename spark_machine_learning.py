@@ -10,21 +10,20 @@ from pyspark.ml import Pipeline
 from pyspark.ml import PipelineModel
 from pyspark.ml.feature import VectorAssembler, StringIndexer
 from pyspark.ml.regression import RandomForestRegressor
-from xgboost.spark import SparkXGBRegressor
+# import pandas as pd
+# from xgboost.spark import SparkXGBRegressor
 from pyspark.ml.evaluation import RegressionEvaluator
 from pyspark.ml.regression import LinearRegression
-import pandas as pd
 from pyspark.ml.tuning import ParamGridBuilder, CrossValidator
 from pyspark.ml.evaluation import RegressionEvaluator
 
-os.environ["PYSPARK_PYTHON"] = sys.executable
-os.environ["PYSPARK_DRIVER_PYTHON"] = sys.executable
+# os.environ["PYSPARK_PYTHON"] = sys.executable
+# os.environ["PYSPARK_DRIVER_PYTHON"] = sys.executable
 
 spark = SparkSession \
              .builder \
              .appName("priceprediction") \
-             .config("spark.driver.memory", "4g") \
-             .config("spark.executor.memory", "4g") \
+             .config("spark.master", "local[*]") \
              .getOrCreate()
            
 
@@ -36,13 +35,9 @@ spark = SparkSession \
 #              .config("spark.driver.memory", "4g") \
 #              .getOrCreate()
 
-# filePath = """sf-airbnb-clean-100p.parquet/"""
-
 # Path to the file
 filepath = 'data/sf-airbnb-clean-100p.parquet'
 
-# print(df.info())
-# print(df.head)
 airbnbDF = spark.read \
                 .parquet(filepath)
 
@@ -61,9 +56,7 @@ airbnbDF \
 #Repartition to improve availability 
 airbnbDF = airbnbDF.repartition(200)
 
-
 #Check for null values
-# Null value check
 null_dict = dict()
 
 for col in airbnbDF .columns:
@@ -146,7 +139,6 @@ X6 = round(lrModel.coefficients[5], 2)
 c = round(lrModel.intercept, 2)
 print(f"""The formula for the linear regression line is price = {X1}*accommodates + {X2}bathrooms +{X3}bedrooms +{X4}beds +{X5}minimum_nights+{X6}review_scores_rating+ {c}""")
 
-
 pipeline = Pipeline(stages=[vecAssembler, lr])
 pipelineModel = pipeline.fit(trainDF)
 predDF = pipelineModel.transform(testDF)
@@ -159,7 +151,6 @@ predDF.select("accommodates" \
               , "features" \
               , "price" \
               , "prediction").show(10)
-
 
 regressionEvaluator = RegressionEvaluator(
                           predictionCol="prediction",
@@ -187,7 +178,6 @@ predDF.select("accommodates" \
               , "features" \
               , "price" \
               , "prediction").show(10)
-
 
 regressionEvaluator = RegressionEvaluator(
                           predictionCol="prediction",
