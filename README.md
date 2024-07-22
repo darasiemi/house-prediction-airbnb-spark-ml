@@ -15,7 +15,7 @@ Data: [San Francisco Dataset](https://insideairbnb.com/get-the-data/)
    - Integrated Docker to containerize the application, ensuring consistency across different computing environments and simplifying subsequent deployment process. Docker encapsulates the application along with its dependencies, making it easy to deploy across different systems without compatibility issues. With some changes/updates, I have adapted the installation process in the lab notebook to create the Dockerfile, which is used to build the image.
 
 3. **Incorporation of the Random Forest Model:**
-   - Incorporated an additionally Random Forest algorithm, leveraging its robustness and accuracy for regression tasks. This model is known for handling overfitting better than many other models and can provide important insights into feature importance.
+   - Incorporated an additionally Random Forest algorithm, leveraging its robustness and accuracy for regression tasks. This model is known for handling overfitting better than many other models and can provide important insights into feature importance. I also checked for missing values and used Imputer to fill missing values with the means of the columns.
 
 4. **Hyperparameter Tuning:**
    - Initiated the process of hyperparameter tuning to optimize model performance. This step is crucial for enhancing the predictive accuracy by fine-tuning the model parameters. The process is currently in progress, with the aim to systematically explore a range of parameter values.
