@@ -4,6 +4,8 @@
 
 This project implements a house price prediction model for Airbnb listings, utilizing Apache Spark to handle the data processing and machine learning tasks. This implementation evolves from a lab exercise from my [Big Data Programming course](https://hub.ucd.ie/usis/!W_HU_MENU.P_PUBLISH?p_tag=MODULE&MODULE=COMP47470), solving the exercise, and adapting the original Jupyter notebook into an executable Python script which can run in a Docker container with all the required dependencies. 
 
+Data: [San Francisco Dataset](https://insideairbnb.com/get-the-data/)
+
 **Key Updates and Enhancements:**
 
 1. **Adaptation to Python Script:**
