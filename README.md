@@ -7,7 +7,7 @@ This project implements a house price prediction model for Airbnb listings, util
 **Key Updates and Enhancements:**
 
 1. **Adaptation to Python Script:**
-   - Converted the original Jupyter notebook into a standalone Python script. Although this was developed to run local clusters, it can be adapted to run on other clusters such as on Dataproc with GCP. 
+   - Converted the original Jupyter notebook into a standalone Python script. Although this was developed to run local clusters, it can be adapted to run on other clusters such as on Dataproc with GCP as I have implemented in my [data engineering project](https://github.com/peter716/data_engineering_credit_fraud_project)
 
 2. **Utilization of Docker:**
    - Integrated Docker to containerize the application, ensuring consistency across different computing environments and simplifying subsequent deployment process. Docker encapsulates the application along with its dependencies, making it easy to deploy across different systems without compatibility issues. With some changes/updates, I have adapted the installation process in the lab notebook to create the Dockerfile, which is used to build the image.
