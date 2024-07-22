@@ -2,7 +2,7 @@
 
 **Implementation Overview: Airbnb House Price Prediction with Apache Spark**
 
-This project implements a house price prediction model for Airbnb listings, utilizing Apache Spark to handle the data processing and machine learning tasks. This implementation evolves from an educational lab from my Big Data Programming course, adapting the original Jupyter notebook format into a more robust form suitable for deployment and execution as a job on a distributed cluster. 
+This project implements a house price prediction model for Airbnb listings, utilizing Apache Spark to handle the data processing and machine learning tasks. This implementation evolves from an educational lab from my [Big Data Programming course](https://hub.ucd.ie/usis/!W_HU_MENU.P_PUBLISH?p_tag=MODULE&MODULE=COMP47470), adapting the original Jupyter notebook format into a more robust form suitable for deployment and execution as a job on a distributed cluster. 
 
 **Key Updates and Enhancements:**
 
