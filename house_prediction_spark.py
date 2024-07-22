@@ -89,6 +89,7 @@ regressionEvaluator = RegressionEvaluator(
 rmse = regressionEvaluator.evaluate(predDF)
 print(f"RMSE for linear regression is {rmse:.1f}")
 
+#!!!Exercise Soluion!!!
 
 # Create an instance of VectorAssembler with multiple input columns
 vecAssembler = VectorAssembler(
@@ -144,7 +145,7 @@ regressionEvaluator = RegressionEvaluator(
 rmse = regressionEvaluator.evaluate(predDF)
 print(f"RMSE for linear regression with multiple independent variables is {rmse:.1f}")
 
-#RandomForest
+#!!!RandomForest!!!
 rf = RandomForestRegressor(featuresCol="features" \
                            , labelCol="price")
 
