@@ -17,23 +17,11 @@ from pyspark.ml.regression import LinearRegression
 from pyspark.ml.tuning import ParamGridBuilder, CrossValidator
 from pyspark.ml.evaluation import RegressionEvaluator
 
-# os.environ["PYSPARK_PYTHON"] = sys.executable
-# os.environ["PYSPARK_DRIVER_PYTHON"] = sys.executable
-
 spark = SparkSession \
              .builder \
              .appName("priceprediction") \
              .config("spark.master", "local[*]") \
              .getOrCreate()
-           
-
-#Uncomment to run locally
-# spark = SparkSession \
-#              .builder \
-#              .appName("MyApp") \
-#              .master("local[*]") \
-#              .config("spark.driver.memory", "4g") \
-#              .getOrCreate()
 
 # Path to the file
 filepath = 'data/sf-airbnb-clean-100p.parquet'
@@ -41,9 +29,6 @@ filepath = 'data/sf-airbnb-clean-100p.parquet'
 airbnbDF = spark.read \
                 .parquet(filepath)
 
-# airbnbDF = spark.read.parquet("/Users/oluwadaraadedeji/Desktop/Spring 2024/AirBnBpricePrediction/sf-airbnb-clean-100p.parquet")
-# print(airbnbDF.printSchema())
-#To get schema for programming
 print(airbnbDF.schema)
 airbnbDF \
 .select("neighbourhood_cleansed"
